@@ -15,7 +15,6 @@
 
 </ion-header>
 
-
 <ion-content padding>
   <div padding>
     <img *ngIf="!resizeLogo" width=300 height=90 [src]="splashlogo">
@@ -78,7 +77,7 @@
     </div>
     <div *ngIf="tracks.length > 0">
       <div *ngFor="let track of tracks; let i = index">
-        <button ion-item *ngIf="i<5">
+        <button ion-item *ngIf="i<5" (click)="addToPlaylist(track)">
           {{track.name}}
           <ion-avatar item-left>
             <img *ngIf="track.album.images.length > 0" [src]="track.album.images[0].url">

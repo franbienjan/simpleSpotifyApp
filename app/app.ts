@@ -4,7 +4,10 @@ import {StatusBar} from 'ionic-native';
 
 import {ArtistsPage} from './pages/artists/artists';
 import {PlaylistsPage} from './pages/playlists/playlists';
-import {UsersPage} from './pages/users/users'
+import {UsersPage} from './pages/users/users';
+import {PersonalPage} from './pages/personal/personal';
+
+import {PlaylistService} from './services/playlist_service'
 
 @Component({
   templateUrl: 'build/app.html'
@@ -23,7 +26,8 @@ import {UsersPage} from './pages/users/users'
     this.pages = [
       { title: 'Search', component: PlaylistsPage },
       { title: 'Artists', component: ArtistsPage },
-      { title: 'User', component: UsersPage }
+      { title: 'User', component: UsersPage },
+      { title: 'Your Music', component: PersonalPage}
     ];
   }
 
@@ -43,4 +47,4 @@ import {UsersPage} from './pages/users/users'
   }
 }
 
-ionicBootstrap(MyApp);
+ionicBootstrap(MyApp, [PlaylistService]);
