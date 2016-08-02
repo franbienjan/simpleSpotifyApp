@@ -1,0 +1,127 @@
+<!--
+  Generated template for the PlaylistsPage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Fake Spotify</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div padding>
+    <img *ngIf="!resizeLogo" width=300 height=90 [src]="splashlogo">
+    <img *ngIf="resizeLogo" width=100 height=30 [src]="splashlogo">
+  </div>
+  <form>
+    <ion-item>
+      <ion-label floating>Search Term</ion-label>
+      <ion-input [(ngModel)]="info.term" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Type</ion-label>
+      <ion-select [(ngModel)]="info.type" multiple="true">
+        <ion-option value="artist" checked="true">Artist</ion-option>
+        <ion-option value="album">Album</ion-option>
+        <ion-option value="playlist">Playlist</ion-option>
+        <ion-option value="track">Track</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Year</ion-label>
+      <ion-select [(ngModel)]="info.year">
+        <ion-option value="2011">2011</ion-option>
+        <ion-option value="2012">2012</ion-option>
+        <ion-option value="2013">2013</ion-option>
+        <ion-option value="2014">2014</ion-option>
+        <ion-option value="2015">2015</ion-option>
+        <ion-option value="2016">2016</ion-option>
+        <ion-option value="all" checked="true">Any</ion-option>
+      </ion-select>
+    </ion-item>
+    <div padding>
+      <button secondary full (click)="search()">Search</button>
+    </div>
+  </form>
+  <div padding-top="0" *ngIf="artists != null">
+    <h3>Artists</h3>
+    <div *ngIf="artists.length == 0">
+      No artists found...
+    </div>
+    <div *ngIf="artists.length > 0">
+      <div *ngFor="let artist of artists; let i = index">
+        <button ion-item *ngIf="i<5" (click)="goToArtist(artist.id)">
+          {{artist.name}}
+          <ion-avatar item-left>
+            <img *ngIf="artist.images.length > 0" [src]="artist.images[0].url">
+            <img *ngIf="artist.images.length == 0" [src]="defaultImage">
+          </ion-avatar>
+        </button>
+        <button ion-item *ngIf="i==5">
+          Show more Artists...
+        </button>
+      </div>
+    </div>
+  </div>
+  <div padding-top="0" *ngIf="tracks != null">
+    <h3>Tracks</h3>
+    <div *ngIf="tracks.length == 0">
+      No tracks found...
+    </div>
+    <div *ngIf="tracks.length > 0">
+      <div *ngFor="let track of tracks; let i = index">
+        <button ion-item *ngIf="i<5">
+          {{track.name}}
+          <ion-avatar item-left>
+            <img *ngIf="track.album.images.length > 0" [src]="track.album.images[0].url">
+            <img *ngIf="track.album.images.length == 0" [src]="defaultImage">
+          </ion-avatar>
+        </button>
+        <button ion-item *ngIf="i==5">
+          Show more Tracks...
+        </button>
+      </div>
+    </div>
+  </div>
+  <div padding-top="0" *ngIf="albums != null">
+    <h3>Albums</h3>
+    <div *ngIf="albums.length == 0">
+      No albums found...
+    </div>
+    <div *ngIf="albums.length > 0">
+      <div *ngFor="let album of albums; let i = index">
+        <button ion-item *ngIf="i<5">
+          {{album.name}}
+          <ion-avatar item-left>
+            <img *ngIf="album.images.length > 0" [src]="album.images[0].url">
+            <img *ngIf="album.images.length == 0" [src]="defaultImage">
+          </ion-avatar>
+        </button>
+        <button ion-item *ngIf="i==5">
+          Show more Albums...
+        </button>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+
+<!--
+==PHASE 1== Custom search for song!
+
+Input: Title
+Select: Type of search (p1: single, p2: multi)
+Button: Submit
+
+==PHASE 2== Add to playlist
+
+Add to playlist (existing! para fun!)
+-->

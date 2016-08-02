@@ -1,0 +1,49 @@
+<!--
+  Generated template for the AlbumsPage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{artist.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <img *ngIf="imgLen != null" [src]="imgLen" height="100px">
+  <h2>{{artist.name}}</h2>
+  <ion-item>
+    <ion-icon name="star" item-left></ion-icon>
+    Popularity
+    <ion-badge secondary item-right>{{artist.popularity}}</ion-badge>
+  </ion-item>
+  <ion-item>
+    <ion-icon name="contacts" item-left></ion-icon>
+    Followers
+    <ion-badge item-right>{{noFollowers | number}}</ion-badge>
+  </ion-item>
+  <br>
+  <h4>Albums</h4>
+  <ion-list>
+    <div *ngFor="let a of albums; let i = index">
+      <button ion-item (click)="goToAlbum(a.id)" *ngIf="i < 5">
+        {{a.name}}
+        <ion-avatar item-left>
+          <img *ngIf="a.images.length > 0" [src]="a.images[0].url">
+          <img *ngIf="a.images.length == 0" [src]="defaultImage">
+        </ion-avatar>
+      </button>
+    </div>
+  </ion-list>
+
+  <h4>Gallery</h4>
+  <ion-slides>
+    <ion-slide *ngFor="let img of artist.images">
+      <img [src]="img.url" height="50px">
+    </ion-slide>
+  </ion-slides>
+</ion-content>
