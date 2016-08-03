@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Modal, NavController, NavParams } from 'ionic-angular';
 
 import { AlbumsPage } from '../albums/albums';
+import { PopupPage } from '../playlists/popup/popup';
 
 import { SpotifyApi } from '../../providers/spotify-api/spotify-api';
 
@@ -9,7 +10,6 @@ import { Info } from '../../models/info';
 import { Album } from '../../models/album';
 import { Artist } from '../../models/artist';
 import { Track } from '../../models/track';
-import { PlaylistService } from '../../services/playlist_service';
 
 /*
   Generated class for the PlaylistsPage page.
@@ -32,8 +32,7 @@ export class PlaylistsPage {
   splashlogo = "https://spotifypresscom.files.wordpress.com/2015/01/spotify_logo_rgb_green.png";
   resizeLogo = false;
 
-  constructor(private nav: NavController, private spotifyApi: SpotifyApi,
-              public playlistService: PlaylistService) {
+  constructor(private nav: NavController, private spotifyApi: SpotifyApi) {
     this.info.year = "all";
     this.info.type = ["artist"];
   }
@@ -60,30 +59,14 @@ export class PlaylistsPage {
     })
   }
 
-  addToPlaylist (track: Track) {
-    let playlistModal = Modal.create(PlaylistModal, {});
+  addToPlaylist (index) {
+    let playlistModal = Modal.create(PopupPage, {"track": this.tracks[index]});
     this.nav.present(playlistModal);
-    console.log("Track added. " + track.name);
-    //this.playlistService.playlists.push("a");
   }
 
-}
-
-@Component({
-  templateUrl: 'build/pages/playlists/popup.html'
-})
-class PlaylistModal {
-
-  playlists: string[];
-
-  constructor(public playlistService: PlaylistService) {
-    this.loadPlaylists();
+  millisToMinutesAndSeconds(millis): string {
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
   }
-
-  loadPlaylists() {
-    this.playlists = this.playlistService.playlists;
-  }
-
-
-
 }

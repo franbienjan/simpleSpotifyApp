@@ -25,18 +25,18 @@
   <br>
   <h2>Your Playlists</h2>
   Here we list your playlists. Each playlist has a list of songs.
-  <div *ngFor="let playlist of playlists">
-    <ion-item>
-      <ion-label>
+    <button secondary (click)="createPlaylist()">
+        <ion-icon name="add-circle"></ion-icon>
+        New Playlist
+    </button>
+  <div *ngFor="let playlist of playlists; let i = index">
+    <ion-item (click)="viewPlaylist(i)">
+      <ion-label *ngIf="!isEdit">
         {{playlist.name}}
       </ion-label>
-      <button item-right secondary (click)="editPlaylist(playlist)">Edit</button>
-      <button item-right secondary (click)="deletePlaylist(playlist)">Delete</button>
+      <button item-right secondary (click)="editPlaylist(i)">Edit</button>
+      <button item-right secondary (click)="deletePlaylist(i)">Delete</button>
     </ion-item>
 
   </div>
-  <button secondary (click)="createPlaylist()">
-    <ion-icon name="add-circle"></ion-icon>
-    New Playlist
-  </button>
 </ion-content>

@@ -23,7 +23,7 @@
   <form>
     <ion-item>
       <ion-label floating>Search Term</ion-label>
-      <ion-input [(ngModel)]="info.term" required></ion-input>
+      <ion-input [(ngModel)]="info.term" required clearInput></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Type</ion-label>
@@ -77,8 +77,9 @@
     </div>
     <div *ngIf="tracks.length > 0">
       <div *ngFor="let track of tracks; let i = index">
-        <button ion-item *ngIf="i<5" (click)="addToPlaylist(track)">
-          {{track.name}}
+        <button ion-item *ngIf="i<5" (click)="addToPlaylist(i)">
+          <div style="font-weight: bold">{{track.name}}</div>
+          <div style="font-size: small; font">{{track.artists[0].name}} | {{track.album.name}}</div>
           <ion-avatar item-left>
             <img *ngIf="track.album.images.length > 0" [src]="track.album.images[0].url">
             <img *ngIf="track.album.images.length == 0" [src]="defaultImage">
